@@ -27,6 +27,10 @@ defmodule Issues.Cli do
     |> decode_response()
     |> sort_issues()
     |> get_recent_issues(count)
+    |> Enum.map(fn issue ->
+      %{"id" => id, "created_at" => created_at, "title" => title} = issue
+      [ Integer.to_string(id), created_at, title ]
+    end)
   end
 
   defp decode_response({ :ok, body }), do: body
