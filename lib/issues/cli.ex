@@ -31,6 +31,7 @@ defmodule Issues.Cli do
       %{"id" => id, "created_at" => created_at, "title" => title} = issue
       [ Integer.to_string(id), created_at, title ]
     end)
+    |> print()
   end
 
   defp decode_response({ :ok, body }), do: body
@@ -47,5 +48,11 @@ defmodule Issues.Cli do
 
   defp get_recent_issues(issues, count) do
     issues |> Enum.take(count)
+  end
+
+  def print(entries) do
+    [ [ "#", "created_at", "title" ] | entries ]
+    |> Issues.Table.create()
+    |> Enum.each(&(IO.puts(&1)))
   end
 end
