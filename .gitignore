@@ -23,3 +23,5 @@ erl_crash.dump
 issues-*.tar
 
 .elixir_ls
+
+.DS_Store
